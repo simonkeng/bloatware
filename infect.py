@@ -1,4 +1,4 @@
-import os, sys
+import os
 import glob
 import subprocess
 import argparse
@@ -7,17 +7,24 @@ import termcolor as tc
 import numpy as np
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-p', '--parasite',
-                    help='Specify number of parasites to infest.',
+parser.add_argument('-p',
+                    '--parasite',
+                    help='Specify number of parasites to infest (# of nests).',
                     type=int)
-parser.add_argument('-s', '--spore',
-                    help='Specify number of spores to spread.',
+parser.add_argument('-s',
+                    '--spore',
+                    help='Specify number of spores to spread (# of worms).',
+                    type=int)
+parser.add_argument('-x',
+                    '--xfactor',
+                    help='Specify severity of infestation (40-400 is safe).',
                     type=int)
 
-# TODO remove this when finished:
+# TODO remove after dev/testing
 if 'PARASITE' in os.listdir(os.getcwd()):
     subprocess.call(['rm', '-r', 'PARASITE'])
 # --
+
 
 def procreate(virus_type):
     print(tc.colored('PROCREATING WORMS', 'cyan'))
@@ -44,19 +51,9 @@ def spawn_worm():
     return worm
 
 def spores(N):
-    print(tc.colored('SPREADING SPORES', 'yellow'))
+    print(tc.colored('SPREADING SPORES', 'yellow', attrs=['bold']))
     for i in range(N):
         subprocess.call(['touch', spawn_worm()])
-
-def infect():
-    print(tc.colored('INFECTING', 'red'))
-    worms = glob.glob('*BLOAT*', recursive=True)
-    for worm in worms:
-        print(worm)
-        with open(worm, 'a') as f:
-            for i in range(organic()): # param
-                f.write('\n')
-                f.write(meiosis())
 
 def disect():
     worms = glob.glob('*BLOAT*', recursive=True)
@@ -64,25 +61,47 @@ def disect():
         subprocess.call(['cat', worm])
 
 def organic():
-    return np.random.randint(50, 200)
+    return np.random.randint(7, 700)
 
 
 
 ## -- VIRUS -- ##
 def outbreak():
     args = parser.parse_args()
+
+    def infect():
+        print(tc.colored('INFECTING', 'red', attrs=['bold']))
+        worms = glob.glob('*BLOAT*', recursive=True)
+        for worm in worms:
+            print(tc.colored(worm, 'green'))
+            with open(worm, 'a') as f:
+                for i in range(severity):
+                    f.write('\n')
+                    f.write(meiosis())
+
+    if args.xfactor:
+        severity = args.xfactor
+    else:
+        severity = organic()
+
     if args.parasite:
         nests = args.parasite
+    else:
+        nests = organic()
 
     for i in range(nests):
         procreate('PARASITE')
+
         if args.spore:
             spores(args.spore)
         else:
             spores(organic())
+
         infect()
         disect()
+
         print('\n')
+
 
 
 if __name__ == "__main__":
