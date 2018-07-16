@@ -1,9 +1,18 @@
 import os, sys
 import glob
 import subprocess
+import argparse
 import random
 import termcolor as tc
 import numpy as np
+
+parser = argparse.ArgumentParser()
+parser.add_argument('-p', '--parasite',
+                    help='Specify number of parasites to infest.',
+                    type=int)
+parser.add_argument('-s', '--spore',
+                    help='Specify number of spores to spread.',
+                    type=int)
 
 # TODO remove this when finished:
 if 'PARASITE' in os.listdir(os.getcwd()):
@@ -30,7 +39,7 @@ def mitosis():
 
 def spawn_worm():
     pre = 'BLOAT__'
-    suf = '.txt'
+    suf = '.worm' # edit file ext
     worm = pre + mitosis() + suf
     return worm
 
@@ -54,18 +63,23 @@ def disect():
     for worm in worms:
         subprocess.call(['cat', worm])
 
-
 def organic():
-    return np.random.randint(15, 200)
-
+    return np.random.randint(50, 200)
 
 
 
 ## -- VIRUS -- ##
 def outbreak():
-    for i in range(organic()):
+    args = parser.parse_args()
+    if args.parasite:
+        nests = args.parasite
+
+    for i in range(nests):
         procreate('PARASITE')
-        spores(organic())
+        if args.spore:
+            spores(args.spore)
+        else:
+            spores(organic())
         infect()
         disect()
         print('\n')
