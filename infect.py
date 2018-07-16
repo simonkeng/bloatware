@@ -11,6 +11,7 @@ if 'PARASITE' in os.listdir(os.getcwd()):
 # --
 
 def procreate(virus_type):
+    print(tc.colored('PROCREATING WORMS', 'cyan'))
     subprocess.call(['mkdir', virus_type])
     curr_path = os.getcwd()
     goto_path = curr_path + '/' + virus_type
@@ -34,24 +35,40 @@ def spawn_worm():
     return worm
 
 def spores(N):
+    print(tc.colored('SPREADING SPORES', 'yellow'))
     for i in range(N):
         subprocess.call(['touch', spawn_worm()])
 
 def infect():
+    print(tc.colored('INFECTING', 'red'))
     worms = glob.glob('*BLOAT*', recursive=True)
     for worm in worms:
+        print(worm)
         with open(worm, 'a') as f:
-            for i in range(500): # param
+            for i in range(organic()): # param
                 f.write('\n')
                 f.write(meiosis())
+
+def disect():
+    worms = glob.glob('*BLOAT*', recursive=True)
+    for worm in worms:
+        subprocess.call(['cat', worm])
+
+
+def organic():
+    return np.random.randint(15, 200)
+
+
 
 
 ## -- VIRUS -- ##
 def outbreak():
-    for i in range(20):
+    for i in range(organic()):
         procreate('PARASITE')
-        spores(100)
+        spores(organic())
         infect()
+        disect()
+        print('\n')
 
 
 if __name__ == "__main__":
