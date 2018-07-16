@@ -2,7 +2,6 @@ import os, sys
 import glob
 import subprocess
 import random
-import requests
 import termcolor as tc
 import numpy as np
 
