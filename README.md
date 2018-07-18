@@ -37,4 +37,4 @@ To get an idea, I timed a test run using the following parameters:
 python infect.py --parasite 70 --spore 150 --xfactor 400
 ```
 
-In only 98.2 seconds the parasite infested and grew 1.1 GB. Thats a rate of 11.2 MB/s, so in 1 hour and it would bloat to nearly 40 GB. Again, please use responsibly. Developing and testing this definitely didn't make my SSD happy, nor my CPU or RAM.
+In only 98.2 seconds the parasite infested and grew 1.1 GB. Thats a rate of 11.2 MB/s, so in 1 hour it would bloat to nearly 40 GB. Again, please use responsibly.
