@@ -2,7 +2,10 @@
 
 _Harmless python script with a hollywood-hacker asthetic. Tunable command line tool with harmful potential. Please use responsibly._
 
-<img src="bloatware.gif">
+<!--bloatware demo gif -->
+<p align="center">
+     <img src="bloatware.gif" width="700" height="500">
+</p>
 
 Bloatware (bloating malware) is a small Python 3.6 script that generates folders recursively, fills them with files, fills those files with data. The data is really really large integers. Malware by definition is something that causes harm to a computer, so yes this is malware because one could use it to cause disk space issues to a computer, but if this script is malware then its the tiny bruise of malware. The cure is simple, just `ctrl + c` the infection `infect.py`, then detoxify the parasite `rm -r parasite/` or move `parasite/` to trash and empty trash.
 
