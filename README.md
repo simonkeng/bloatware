@@ -1,6 +1,6 @@
 # Bloatware
 
-_Harmless python script with a hollywood-hacker asthetic. Tunable command line tool with harmful potential. Please use responsibly._
+_Harmless python script with a hollywood-hacker aesthetic. Tunable command line tool with harmful potential. Please use responsibly._
 
 <!--bloatware demo gif -->
 <p align="center">
